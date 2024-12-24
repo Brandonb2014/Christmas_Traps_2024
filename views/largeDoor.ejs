@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <style>
+            body {
+                background-color: #847f65;
+                background-image: url("/images/large-door.jpg");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: top;
+                background-size: contain;
+            }
+
+            img {
+                width: 400px;
+                position: fixed;
+                transition-property: top;
+                transition-duration: .5s;
+            }
+
+            #lock87 {
+                left: 750px;
+                top: 100px;
+            }
+
+            #lock5d {
+                left: 250px;
+                top: 550px;
+            }
+
+            #lock9d {
+                left: 650px;
+                top: 550px;
+            }
+
+            #lock7d {
+                left: 200px;
+                top: 50px;
+            }
+
+            #lock3d {
+                left: 450px;
+                top: 300px;
+            }
+
+            #lock2b {
+                left: 100px;
+                top: 400px;
+            }
+
+            #locka3 {
+                left: 700px;
+                top: 350px;
+            }
+
+            #lock91 {
+                left: 500px;
+                top: 100px;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        
+        <script type="text/javascript" charset="utf-8">
+            async function runLoop() {
+                fetch("checkActivePlayers", {
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    method: 'GET'
+                })
+                .then(res => res.json())
+                .then(async (data) => {
+                    for (let i = 0; i < data.length; i++) {
+                        const player = data[i];
+                        if (!!player.difficulty && !player.unlocked_basement) {
+                            const lock87Top = '100px';
+                            const lock5dTop = '550px';
+                            const lock9dTop = '550px';
+                            const lock7dTop = '50px';
+                            const lock3dTop = '300px';
+                            const lock2bTop = '400px';
+                            const locka3Top = '350px';
+                            const lock91Top = '100px';
+                            const lockId = "lock" + player.id;
+                            document.getElementById(lockId).style.top = lockId + 'top';
+                        } else {
+                            const lockId = "lock" + player.id;
+                            document.getElementById(lockId).style.top = "-500px";
+                        }
+                    }
+                });
+                setTimeout(runLoop, 1000);
+            }
+        </script>
+        <title>Traps 2023</title>
+    </head>
+    <body onload="runLoop()">
+        <img id="lock87" src="/images/lock-and-chain.png" /> <!-- Evelyn -->
+        <img id="lock5d" src="/images/lock-and-chain.png" /> <!-- Shelby -->
+        <img id="lock9d" src="/images/lock-and-chain.png" /> <!-- Carson -->
+        <img id="lock7d" src="/images/lock-and-chain.png" /> <!-- Emerson -->
+        <img id="lock3d" src="/images/lock-and-chain.png" /> <!-- Ollie -->
+        <img id="lock2b" src="/images/lock-and-chain.png" /> <!-- Grayson -->
+        <img id="locka3" src="/images/lock-and-chain.png" /> <!-- Guest - Pink Emerald -->
+        <img id="lock91" src="/images/lock-and-chain.png" /> <!-- Guest - Crescent Moon -->
+    </body>
+</html>

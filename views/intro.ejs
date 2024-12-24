@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <style>
+            body {
+                background-color: #070d10;
+            }
+            #welcome_vid {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        </style>
+        <title>Traps 2023</title>
+    </head>
+    <body>
+        <video id="welcome_vid" controls autoplay>
+            <source src="video/Traps2023Intro.mp4" type="video/mp4">
+            This browser does not display the video tag.
+        </video>
+        <a id="forward-button" href="/dashboard?id=<%= id %>&difficulty=<%= difficulty %>" style="position: absolute; right: 10em">
+            <img src="/images/rightArrow.png" />
+        </a>
+    </body>
+    <script>
+        video = document.getElementById('welcome_vid');
+        video.addEventListener('ended',function() {
+            const url = "/dashboard?id=<%= id %>&difficulty=<%= difficulty %>";
+            window.location.href=url;
+        });
+    </script>
+</html>

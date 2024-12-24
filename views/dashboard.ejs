@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <style>
+            body {
+                background-image: url("images/mountain-range-covered-in-snow-background.jpeg");
+                background-color: #323965;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: top;
+                font-family: bradley hand, cursive;
+                height: 100%;
+            }
+
+            .wrapper {
+                background: rgba(89,85,85,0.5);
+                margin: auto;
+                padding: 1em;
+                max-width: 800px;
+                border-radius: 10px;
+            }
+
+            h1 {
+                text-align: center;
+                font-size: 44pt;
+                color: #FFF;
+            }
+
+            #mission-wrapper {
+                display: flex;
+                flex-flow: wrap;
+                max-width: 80vw;
+                margin: 0 auto;
+                justify-content: center;
+            }
+
+            #mission-wrapper a {
+                display: flex;
+                width: 5em;
+                height: 3em;
+                color: #FFF;
+                border: 1px solid black;
+                margin: 15px 5px;
+                justify-content: center;
+                align-items: center;
+                border-radius: 10px;
+                text-decoration: none;
+                background: #CC231E;
+                font-size: 36pt;
+                font-weight: bold;
+            }
+
+            #mission-wrapper a.complete {
+                background: #378B29;
+            }
+            
+            .sky {
+                height: 80vh;
+                color: #FFF;
+                display: block;
+            }
+        </style>
+        <script>
+            function playHelp() {
+                const audioUrl = "http://192.168.0.146:3000/audio/help.wav";
+                var audio = new Audio(audioUrl);
+                audio.play();
+            }
+        </script>
+        <title>Traps 2023</title>
+    </head>
+    <body>
+        <section class="sky">
+            <div class="wrapper">
+                <h1>Tap on a mission to start</h1>
+                <div id="mission-wrapper">
+                    <% missions.forEach(mission => { %>
+                        <a class="<%= mission.is_complete == 1 ? 'complete' : '' %>" href="mission?id=<%= id %>&missionId=<%= mission.mission_id %>&difficulty=<%= difficulty %>&mission=<%= mission.item %>&audio_url=<%= mission.audio_url %>">
+                            <img style="height: 100px;" src="<%= mission.img_url %>" alt="<%= mission.item %>" />
+                        </a>
+                    <% }) %>
+                    <a href="/basementMission?id=<%= id %>&missionId=11" style="display: <%= missionsComplete.missions_complete == 1 ? 'flex' : 'none' %>;">
+                        <img style="height: 100px;" src="/images/large-door.jpg" />
+                    </a>
+                </div>
+                <a id="back-button" href="/?id=<%= id %>">
+                    <img style="height: 100px;" src="/images/home.png" />
+                </a>
+                <img style="height: 100px; padding-left: 2em; cursor: pointer;" onclick="playHelp()" src="/images/question.jpg" />
+            </div>
+        </section>
+        <script src="scripts/snow.js"></script>
+    </body>
+</html>

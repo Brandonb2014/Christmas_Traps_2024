@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <style>
+            body {
+                background-color: #847f65;
+                background-image: url("/images/large-door.jpg");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: top;
+                background-size: contain;
+            }
+
+            img {
+                width: 400px;
+                position: fixed;
+                transition-property: top;
+                transition-duration: .5s;
+            }
+
+            #lock87 {
+                left: 750px;
+                top: 100px;
+            }
+
+            #lock5d {
+                left: 250px;
+                top: 550px;
+            }
+
+            #lock9d {
+                left: 650px;
+                top: 550px;
+            }
+
+            #lock7d {
+                left: 200px;
+                top: 50px;
+            }
+
+            #lock3d {
+                left: 450px;
+                top: 300px;
+            }
+
+            #lock2b {
+                left: 100px;
+                top: 400px;
+            }
+
+            #locka3 {
+                left: 700px;
+                top: 350px;
+            }
+
+            #lock91 {
+                left: 500px;
+                top: 100px;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        
+        <script type="text/javascript" charset="utf-8">
+            let isPlayingAudio = false;
+            async function runLoop() {
+                fetch("checkNewScans?id=<%= id %>&missionId=<%= missionId %>", {
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    method: 'GET'
+                })
+                .then(res => res.json())
+                .then(async (data) => {
+                    if (!!data?.msg && data.msg == "Door unlocked") {
+                        playAudio("/audio/door-unlocked.wav");
+                    } 
+                });
+                setTimeout(runLoop, 1000);
+            }
+
+            function playAudio(audio) {
+                const audioUrl = "http://192.168.0.146:3000/" + audio;
+                var audio = new Audio(audioUrl);
+                audio.play();
+            }
+        </script>
+        <title>Traps 2023</title>
+    </head>
+    <body onload="runLoop()">
+        <audio autoplay onloadeddata="var audioPlayer = this;">
+            <source src="/audio/basement-mission.wav" type="audio/mp3" />
+        </audio>
+    </body>
+</html>

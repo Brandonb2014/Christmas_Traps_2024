@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <style>
+            body {
+                background-image: url("images/north-pole-background.jpeg");
+                background-color: #323965;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: top;
+                font-family: bradley hand;
+            }
+
+            .wrapper {
+                background: rgba(89,85,85,0.5);
+                margin: auto;
+                padding: 1em;
+                max-width: 800px;
+                border-radius: 10px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .sky {
+                height: 90vh;
+                color: #FFF;
+                display: block;
+            }
+
+            h1 {
+                text-align: center;
+                font-size: 44pt;
+                color: #FFF;
+                text-shadow: #74d680 3px 4px;
+            }
+
+            div#start-button-wrapper {
+                text-align: center;
+                margin: 0 0 40px 0;
+            }
+
+            #start-button {
+                padding: 10px 15px;
+                background-color: grey;
+                border-radius: 10px;
+                text-decoration: none;
+                color: #FFF;
+                font-size: 28pt;
+            }
+
+            #start-button:enabled {
+                background-color: #378B29;
+            }
+
+            label {
+                font-size: 30pt;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            select {
+                margin-bottom: 25px;
+                font-size: 30pt;
+                background: #378B29;
+                border-radius: 10px;
+                text-align: center;
+                border: 1px solid #F00;
+                color: #FFF;
+            }
+
+            select:hover,
+            #start-button:hover:enabled {
+                cursor: pointer;
+            }
+
+            #volume-text {
+                text-align: center;
+                font-size: 34pt;
+                color: #FF0000;
+                animation-name: volumePulse;
+                animation-duration: 2s;
+                animation-iteration-count: infinite;
+                text-shadow: #FFF 1px 1px;
+                font-weight: bold;
+                margin: 0;
+            }
+
+            @keyframes volumePulse {
+                from {color: #FF0000;}
+                to {color: #378B29;}
+            }
+        </style>
+        <title>Traps 2023</title>
+    </head>
+    <body>
+        <section class="sky">
+            <section class="wrapper">
+                <h1>Traps 2023!</h1>
+                <p id="volume-text">Turn up your volume</p>
+                <p>(And don't use Chrome)</p>
+
+                <label for="players">Select Player:</label>
+                <select name="players" id="players" onchange="playerChanged()">
+                    <option value="select">Select</option>
+                    <% players.forEach(player => { %>
+                        <option value="<%= player.id %>"><%= player.name %></option>
+                    <% }) %>
+                </select>
+                
+                <label for="difficulty">Select difficulty:</label>
+                <select name="difficulty" id="difficulty" onchange="difficultyChanged()">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                </select>
+                <p id="easy-mode-description">Easy mode has 3 missions.<br />The items to find for each mission are the sensors themselves.</p>
+                <p id="medium-mode-description" style="display: none;">Medium mode has 7 missions with a different number of items to find in each mission.<br />The items are randomized and don't match the sensors.</p>
+                
+                <button type="button" id="start-button" onclick="goToNextPage()" disabled>Start</button>
+            </section>
+        </section>
+        <audio autoplay>
+            <source src="audio/WeWishYouAMerryChristmas.ogg" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
+        <script src="scripts/snow.js"></script>
+        <script>
+            function playerChanged() {
+                const selectedPlayer = document.getElementById("players").value;
+                const startButton = document.getElementById("start-button");
+
+                startButton.disabled = selectedPlayer != "select" ? false : true;
+            };
+
+            function difficultyChanged() {
+                const selectedDifficulty = document.getElementById("difficulty").value;
+                const easyModeDescription = document.getElementById("easy-mode-description");
+                const mediumModeDescription = document.getElementById("medium-mode-description");
+
+                if (selectedDifficulty == "easy") {
+                    easyModeDescription.style.display = "block";
+                    mediumModeDescription.style.display = "none";
+                } else if (selectedDifficulty == "medium") {
+                    easyModeDescription.style.display = "none";
+                    mediumModeDescription.style.display = "block";
+                }
+            };
+
+            function goToNextPage() {
+                const difficultyLevel = document.getElementById("difficulty").value;
+                const selectedPlayer = document.getElementById("players").value;
+
+                const url = "setPlayerDifficultyLevel?id=" + selectedPlayer + "&difficulty=" + difficultyLevel;
+                window.location.href=url;
+            }
+        </script>
+    </body>
+</html>
