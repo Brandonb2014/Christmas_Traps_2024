@@ -39,27 +39,8 @@ app.get("/players", async (req, res) => {
     res.send(players);
 });
 
-app.get("/setPlayerDifficultyLevel", async (req, res) => {
-    const { id, difficulty } = req.query;
-
-    if (!id || !difficulty) return res.status(400).json({ msg: 'Missing playerId or difficulty' });
-
-    // Delete any data in both player_missions and player_mission_details tables
-    // for the selected player before we add more data.
-    const clearPlayerDataResponse = await clearPlayerData(id);
-
-    const insertPlayerMissionsResult = await insertPlayerMissions(id, difficulty);
-
-    const insertPlayerProgressResult = await insertPlayerProgress(id, difficulty);
-    
-    const updatePlayerMissionsCompleteResponse = await updatePlayerMissionsComplete(id, false);
-
-    const updatePlayerUnlockedBasementResponse = await updatePlayerUnlockedBasement(id, false);
-
-    const setPlayerDifficultyLevelResult = await setPlayerDifficultyLevel(id, difficulty);
-    res.render("intro.ejs", {
-        id, difficulty,
-    });
+app.get("/navigateToIntro", async (req, res) => {
+    res.render("intro.ejs", {});
 });
 
 app.get("/clearPlayerDifficultyLevels", async (req, res) => {

@@ -1,35 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <style>
-            body {
-                background-color: #070d10;
-            }
-            #welcome_vid {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        </style>
-        <title>Traps 2023</title>
-    </head>
-    <body>
-        <video id="welcome_vid" controls autoplay>
-            <source src="video/Traps2023Intro.mp4" type="video/mp4">
-            This browser does not display the video tag.
-        </video>
-        <a id="forward-button" href="/dashboard?id=<%= id %>&difficulty=<%= difficulty %>" style="position: absolute; right: 10em">
-            <img src="/images/rightArrow.png" />
-        </a>
-    </body>
-    <script>
-        video = document.getElementById('welcome_vid');
-        video.addEventListener('ended',function() {
-            const url = "/dashboard?id=<%= id %>&difficulty=<%= difficulty %>";
-            window.location.href=url;
-        });
-    </script>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<style>
+			@font-face {
+				font-family: myFirstFont;
+				src: url(font/In_your_face,_joffrey!.ttf);
+			}
+
+			* {
+				font-family: myFirstFont;
+			}
+
+			body {
+				background-image: url(images/space.jpg);
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-position: center;
+				background-size: cover;
+			}
+
+			.wrapper {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				width: 80%;
+				margin: 0 auto;
+			}
+
+			h1 {
+				color: white;
+				font-size: 68pt;
+			}
+
+			.player-selection {
+				display: flex;
+				flex-direction: column;
+				gap: 50px;
+			}
+			.row {
+				display: flex;
+				gap: 50px;
+			}
+
+			img {
+				width: 180px;
+			}
+		</style>
+		<title>Traps 2024</title>
+	</head>
+	<body>
+		<audio autoplay>
+			<source src="audio/theme.mp3" type="audio/mp3">
+			Your browser does not support the audio element.
+		</audio>
+		<div class="wrapper">
+			<h1>Choose the players</h1>
+			<div class="player-selection">
+				<div class="row">
+					<img src="images/red.png" />
+					<img src="images/orange.webp" />
+					<img src="images/blue.png" />
+					<img src="images/black.webp" />
+				</div>
+				<div class="row">
+					<img src="images/white.png" />
+					<img src="images/pink.png" />
+					<img src="images/green.webp" />
+					<img src="images/brown.webp" />
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+
+	</script>
 </html>
